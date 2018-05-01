@@ -6,16 +6,21 @@
 package com.mycompany.gui;
 
 import com.codename1.ui.Button;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.FlowLayout;
 import com.mycompany.Entity.Msg;
+import com.mycompany.Entity.Users;
 import com.mycompany.Service.MessageService;
+import com.mycompany.Service.UsersService;
 import static com.mycompany.gui.DetailBrand.idenseigne;
+import com.mycompany.myapp.MyApplication;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -35,6 +40,7 @@ public class NewMsgForm extends BaseForm {
     private com.codename1.ui.Button gui_Button_3 = new com.codename1.ui.Button();
     private com.codename1.ui.Button gui_Button_1 = new com.codename1.ui.Button();
     MessageService ms = new MessageService();
+                Boolean test;
 
     public NewMsgForm() {
         this(com.codename1.ui.util.Resources.getGlobalResources());
@@ -82,9 +88,39 @@ public class NewMsgForm extends BaseForm {
         gui_Component_Group_1.setName("Component_Group_1");
         gui_Button_2.setText("Envoyer");
         gui_Button_2.setName("Button_2");
+        UsersService us = new UsersService();
+
         gui_Button_2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
+                 ArrayList<Users> listu = new ArrayList<Users>();
+                listu = us.getAllUsers();
+                //test = listu.contains(us.getUserbyEmail(gui_Text_Field_3.getText()));
+                Users u=new Users();
+                u.setEmail(gui_Text_Field_3.getText());
+                
+
+                for(int i=0;i<listu.size();i++)
+                    {
+                    if (listu.get(i).getEmail().equals(u.getEmail())) {
+                        test=true;
+                      break;
+                    }
+                    else {
+                        test=false;
+
+                    }
+                    }
+                if (gui_Text_Field_1.getText().equals("") || gui_Text_Field_2.getText().equals("") || gui_Text_Field_3.getText().equals("")) {
+                    Dialog.show("Erreur", "Veillez remplir tout les champs", "OK", null);
+                }
+               
+                else if(test == false)
+                             {
+                        Dialog.show("Erreur", "email non valide" , "OK", null);
+
+            }
+                     else{
                 Msg m = new Msg();
                 m.setBody(gui_Text_Field_1.getText());
                 Date d = new Date();
@@ -94,14 +130,15 @@ public class NewMsgForm extends BaseForm {
 // representation of a date with the defined format.
                 String reportDate = df.format(new java.util.Date().getTime());
                 m.setDateEnvoi(reportDate);
-                m.setEmetteur_id(2);
-                m.setRecepteur_id(1);
+                m.setEmetteur_id(MyApplication.user.getId());
+                m.setRecepteur_id(us.getUserbyEmail(gui_Text_Field_3.getText()).getId());
                 m.setSubject(gui_Text_Field_2.getText());
                 m.setLu(0);
                 System.out.println(m.toString());
                 ms.AddMsg(m);
                 InboxForm h = new InboxForm();
             h.show();
+            }
             }
         });
         /*gui_Button_3.setText("Forgot Your Password");

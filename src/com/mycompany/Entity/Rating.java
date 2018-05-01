@@ -84,6 +84,29 @@ public class Rating{
     }
 
     
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Rating other = (Rating) obj;
+        if (this.enseigne_id != other.enseigne_id) {
+            return false;
+        }
+        if (this.user_id != other.user_id) {
+            return false;
+        }
+        return true;
+    }
+
+    
    
 }
 

@@ -12,6 +12,7 @@ import com.codename1.maps.layers.PointLayer;
 import com.codename1.maps.layers.PointsLayer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.Font;
@@ -33,10 +34,18 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.mycompany.Controllers.BrandsControllers;
 import com.mycompany.Entity.Comment;
+import com.mycompany.Entity.Rating;
+import com.mycompany.Entity.favory_brand;
 import com.mycompany.Service.CommentService;
 import com.mycompany.Service.RatingService;
 import com.mycompany.Service.ServiceBrand;
+import com.mycompany.myapp.MyApplication;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -53,7 +62,7 @@ public class DetailBrand extends BaseForm {
     CommentService cs = new CommentService();
     Image imgUrl2;
     Image imgUrl0;
-
+Boolean test;
     public DetailBrand() {
         this(com.codename1.ui.util.Resources.getGlobalResources());
 Slider star = createStarRankSlider();
@@ -63,11 +72,48 @@ Slider star = createStarRankSlider();
         star.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                rs.AddRate(1, idenseigne, star.getProgress());
+                Rating ff = new Rating();
+                    ff.setEnseigne_id(idenseigne);
+                    ff.setUser_id(MyApplication.user.getId());
+                    System.out.println(ff.toString());
+                    List<Rating> listf = new ArrayList<>();
+                    listf = rs.GetAllRating();
+                    System.out.println(listf.get(0).toString());
+                    for(int i=0;i<listf.size();i++)
+                    {
+                    if (listf.get(i).equals(ff)) {
+                        test=true;
+                      break;
+                    }
+                    else {
+                        test=false;
+
+                    }
+                    }
+                    if(test==true){
+                     Dialog.show("déja noté", null, "ok", null);
+                         
+                    }
+                    else{
+rs.AddRate(MyApplication.user.getId(), idenseigne, star.getProgress());
                 System.out.println(star.getProgress());
+                    }
+                    /*if (f1.getUser_id() == 0) {
+                       
+                        fb.AddFavory(e.getId(), MyApplication.user.getId());
+                    } else {
+                        Dialog.show("déja favoris", "", "ok", "cancel");
+
+                    }*/
+                
 
             }
         });
+        Label note=new Label("("+rs.testrate(idenseigne)+"/5)");
+        Label note2=new Label("("+rs.testrate2(idenseigne)+" votes)");
+
+        add(note);
+        add(note2);
     }
 
     public DetailBrand(com.codename1.ui.util.Resources resourceObjectInstance) {
@@ -92,18 +138,33 @@ getToolbar().setTitleComponent(
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
+                 if (tf1.getText().equals("") ) 
+            {
+                   Dialog.show("Erreur", "Veillez remplir tout les champs" , "OK", null);
+    
+            }else{
                 Comment cm = new Comment();
                 cm.setEnseigne_id(idenseigne);
-                cm.setUser_id(1);
+                cm.setUser_id(MyApplication.user.getId());
                 cm.setContent(tf1.getText());
-                cs.AddComment(cm);
+                Date d = new Date();
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
+// Using DateFormat format method we can create a string 
+// representation of a date with the defined format.
+                String reportDate = df.format(new java.util.Date().getTime());
+                cm.setDateComment(reportDate);
+                cs.AddComment(cm);
+                 }
             }
         });
-        Container c1 = new Container(BoxLayout.y());
+        Container c1 = new Container(BoxLayout.x());
+        tf1.setPreferredSize(new Dimension(170, 1000));
         c1.add(tf1);
         c1.add(b);
-        c1.setWidth(50);
+        b.setPreferredSize(new Dimension(140, 50));
+        c1.setPreferredSize(new Dimension(310, 100));
+
         add(c1);
         Image placeholder1 = Image.createImage(40, 40);
         EncodedImage encImage1 = EncodedImage.createFromImage(placeholder1, false);
@@ -139,10 +200,9 @@ getToolbar().setTitleComponent(
             @Override
             public void actionPerformed(ActionEvent evt) {
                 try {
-                    MapForm.idenseigne=idenseigne;
-                    MapForm mp = new MapForm();
-                    
-                    mp.show();
+                    //MapForm.idenseigne=idenseigne;
+                    new MapForm().show();
+                    refreshTheme();
                 } catch (IOException ex) {
 System.out.println("erreur");                }
             }

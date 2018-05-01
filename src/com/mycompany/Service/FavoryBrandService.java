@@ -13,6 +13,7 @@ import com.codename1.ui.events.ActionListener;
 import com.mycompany.Controllers.BrandsControllers;
 import com.mycompany.Controllers.FavoryController;
 import com.mycompany.Entity.Comment;
+import com.mycompany.Entity.Enseigne;
 import com.mycompany.Entity.favory_brand;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,5 +63,37 @@ public class FavoryBrandService {
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listfavoris;
     }
-    
+     public void deleteFav(int idbrand, int idUser) {
+         ConnectionRequest req = new ConnectionRequest();
+        req.setUrl("http://localhost/CupcakeScript/deleteFav.php?idBrand=" + idbrand + "&idUser=" + idUser + "");
+        System.out.println(req.getUrl());
+        req.addResponseListener((NetworkEvent evt) -> {
+            byte[] data = (byte[]) evt.getMetaData();
+            String s = new String(data);
+            System.out.println(s);
+        });
+
+        Dialog a = new Dialog("inf");
+        a.show("info", "enseigne retiré du favori", "Yes", null);
+        NetworkManager.getInstance().addToQueue(req);
+    }
+    favory_brand e=new favory_brand();
+    public  favory_brand getOneFavory(int idbrand,int iduser) {
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl("http://localhost:3000/api/favory_brand?_where=(user_id,eq,"+iduser+")&(enseigne_id,eq,"+idbrand+")");
+        con.setPost(false);
+
+        con.setHttpMethod("GET");
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                FavoryController fc=new FavoryController();
+                e = fc.getFavory(new String(con.getResponseData()));
+            }
+        });
+
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        return e;
+
+    }
 }

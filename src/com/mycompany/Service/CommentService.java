@@ -35,10 +35,11 @@ public class CommentService {
         con.setHttpMethod("POST");
         con.addRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         con.addArgument("content", cm.getContent());
+        con.addArgument("DateComment", cm.getDateComment());
+
         con.addArgument("user_id", Integer.toString(cm.getUser_id()));
         con.addArgument("enseigne_id",Integer.toString( cm.getEnseigne_id()));
-                        Dialog.show("erreur", "not correct", "ok", "cancel");
-
+Dialog.show("Ajout avec succés",null,"ok",null);
         NetworkManager.getInstance().addToQueueAndWait(con);
     
     }

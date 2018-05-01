@@ -17,8 +17,12 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.mycompany.Controllers.BrandsControllers;
+import com.mycompany.Entity.Bakery;
+import com.mycompany.Service.BakeryService;
 import com.mycompany.myapp.MyApplication;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -29,6 +33,8 @@ public class MapForm extends BaseForm {
     private Resources theme;
     public static int idenseigne = 0;
     BrandsControllers sb = new BrandsControllers();
+    List<Bakery> lb = new ArrayList<Bakery>();
+    BakeryService bs = new BakeryService();
 
     public MapForm() throws IOException {
         this(com.codename1.ui.util.Resources.getGlobalResources());
@@ -46,7 +52,9 @@ public class MapForm extends BaseForm {
             DetailBrand h = new DetailBrand();
             h.show();
         });
-        Image marker = Image.createImage("/marker.png");
+        lb=bs.getListBakeryByidBrand(idenseigne);
+        System.out.println(lb.toString());
+       Image marker = Image.createImage("/marker.png");
         Image fill = marker.fill(30, 30);
 
         MapComponent m = new MapComponent();
@@ -57,17 +65,18 @@ public class MapForm extends BaseForm {
         //Image marker = Image.createImage(theme.getImage("marker.png"));
 
         //Coord coordonnees = new Coord(36.899527163883356, 10.18983787368006);
-        Coord coordonnees = sb.getCoords("tunis,tunisie");
-        PointLayer pl = new PointLayer(coordonnees, "ESPRIT Incubateur, Cebalat Ben Ammar, Tunisia", fill);
+        for(Bakery e:lb){
+        Coord coordonnees = sb.getCoords(e.getAddress());
+        PointLayer pl = new PointLayer(coordonnees, e.getName(), fill);
         pl.setDisplayName(true);
         PointsLayer pointsL = new PointsLayer();
         pointsL.addPoint(pl);
         pointsL.setPointIcon(fill);
         m.addLayer(pointsL);
-
+        }
         add(m);
-        
-        show();
 
+        show();
+        refreshTheme();
     }
 }

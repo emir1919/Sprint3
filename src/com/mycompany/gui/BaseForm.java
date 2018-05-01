@@ -12,6 +12,10 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
+import com.mycompany.Entity.Msg;
+import com.mycompany.Service.MessageService;
+import com.mycompany.myapp.MyApplication;
+import java.util.ArrayList;
 
 /**
  *
@@ -45,8 +49,12 @@ public class BaseForm extends Form {
         Button inboxButton = new Button("Inbox", inboxImage);
         inboxButton.setUIID("SideCommand");
         inboxButton.getAllStyles().setPaddingBottom(0);
+                ArrayList<Msg> listmsg2=new ArrayList<>();
+        MessageService ms=new MessageService();
+                                listmsg2=ms.GetReceiveMsg(MyApplication.user.getId());
+
         Container inbox = FlowLayout.encloseMiddle(inboxButton,
-                new Label("18", "SideCommandNumber"));
+                new Label(""+listmsg2.size(), "SideCommandNumber"));
         inbox.setLeadComponent(inboxButton);
         inbox.setUIID("SideCommand");
         inboxButton.addActionListener(e -> new InboxForm().show());
@@ -54,8 +62,8 @@ public class BaseForm extends Form {
         //getToolbar().addCommandToSideMenu("Mes favoris", null, e -> new FavoryFrom(res).show());
 
         getToolbar().addComponentToSideMenu(inbox);
-        getToolbar().addCommandToSideMenu("Map", null, e -> {
-        });
+        /*getToolbar().addCommandToSideMenu("Enseignes", null, e -> new ShowBrand(res).show()
+        );*/
 
         getToolbar().addCommandToSideMenu("Stats", statsImage, e -> new StatsForm(res).show());
         //getToolbar().addCommandToSideMenu("Calendar", calendarImage, e -> new CalendarForm(res).show());

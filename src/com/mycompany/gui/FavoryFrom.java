@@ -19,6 +19,7 @@ import com.mycompany.Entity.Enseigne;
 import com.mycompany.Entity.favory_brand;
 import com.mycompany.Service.FavoryBrandService;
 import com.mycompany.Service.ServiceBrand;
+import com.mycompany.myapp.MyApplication;
 import java.util.ArrayList;
 
 /**
@@ -35,6 +36,7 @@ public class FavoryFrom extends BaseForm {
 
     public FavoryFrom() {
         this(com.codename1.ui.util.Resources.getGlobalResources());
+        refreshTheme();
     }
 
     public FavoryFrom(com.codename1.ui.util.Resources resourceObjectInstance) {
@@ -48,7 +50,7 @@ public class FavoryFrom extends BaseForm {
             ShowBrand h = new ShowBrand();
             h.show();
         });
-        listfavoris = fs.GetFaovryByUser(1);
+        listfavoris = fs.GetFaovryByUser(MyApplication.user.getId());
         System.out.println(listfavoris.toString());
         System.out.println(sb.getBrandById(listfavoris.get(0).getEnseigne_id()).toString());
 
@@ -78,11 +80,11 @@ public class FavoryFrom extends BaseForm {
             Container c2 = new Container(BoxLayout.x());
             Image placeholder1 = Image.createImage(40, 40);
             EncodedImage encImage1 = EncodedImage.createFromImage(placeholder1, false);
-            imgUrl2 = URLImage.createToStorage(encImage1, "http://localhost/CupcakeScript/fav.png", "http://localhost/CupcakeScript/fav.png");
+            imgUrl2 = URLImage.createToStorage(encImage1, "http://localhost/CupcakeScript/defav.png", "http://localhost/CupcakeScript/defav.png");
             ImageViewer img2 = new ImageViewer(imgUrl2);
 
             refreshTheme();
-            Label l1 = new Label("favory");
+            Label l1 = new Label("Retirer");
             Container c4 = new Container(BoxLayout.x());
             c4.add(img2);
             c4.add(l1);
@@ -90,7 +92,8 @@ public class FavoryFrom extends BaseForm {
             l1.addPointerPressedListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    //fb.AddFavory(e.getId(),1);
+                    fs.deleteFav(e.getId(),MyApplication.user.getId());
+                    
                 }
             });
 

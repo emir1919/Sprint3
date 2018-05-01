@@ -33,11 +33,13 @@ public class CommentControllers {
 
             // System.out.println(obj.get("id"));
             float id = Float.parseFloat(obj.get("id").toString());
-            float user_id = Float.parseFloat(obj.get("enseigne_id").toString());
-            float enseigne_id = Float.parseFloat(obj.get("user_id").toString());
+            float user_id = Float.parseFloat(obj.get("user_id").toString());
+            float enseigne_id = Float.parseFloat(obj.get("enseigne_id").toString());
             System.out.println(id);
             e.setId((int) id);
             e.setContent(obj.get("Content").toString());
+             e.setDateComment(obj.get("DateComment").toString());
+
             e.setEnseigne_id((int)enseigne_id);
             e.setUser_id((int)user_id);
             System.out.println(e);

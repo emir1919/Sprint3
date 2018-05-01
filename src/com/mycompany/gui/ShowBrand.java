@@ -32,6 +32,7 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.mycompany.Entity.Enseigne;
+import com.mycompany.Entity.favory_brand;
 import com.mycompany.Service.FavoryBrandService;
 import com.mycompany.Service.ServiceBrand;
 import static com.mycompany.gui.DetailBrand.idenseigne;
@@ -43,18 +44,21 @@ import java.util.List;
  *
  * @author Emir
  */
-public class ShowBrand extends BaseForm{
+public class ShowBrand extends BaseForm {
 
     //Form f;
- public ShowBrand()
- {
-         this(com.codename1.ui.util.Resources.getGlobalResources());
+    Boolean test = false;
+    favory_brand f1 = new favory_brand();
+    static int idb = 0;
 
- }
+    public ShowBrand() {
+        this(com.codename1.ui.util.Resources.getGlobalResources());
+
+    }
+
     public ShowBrand(com.codename1.ui.util.Resources resourceObjectInstance) {
-    installSidemenu(resourceObjectInstance);
-       // f = new Form();
-        
+        installSidemenu(resourceObjectInstance);
+        // f = new Form();
 
         ImageViewer img = new ImageViewer();
 
@@ -88,15 +92,67 @@ public class ShowBrand extends BaseForm{
             ImageViewer img2 = new ImageViewer(imgUrl2);
 
             refreshTheme();
-            Label l1 = new Label("favory");
+            Label l1 = new Label("Ajouter favoris");
             Container c4 = new Container(BoxLayout.x());
             c4.add(img2);
             c4.add(l1);
+            idb = e.getId();
 
             l1.addPointerPressedListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    fb.AddFavory(e.getId(),1);
+                    /*favory_brand ff=new favory_brand();
+                    ff.setEnseigne_id(e.getId());
+                    ff.setUser_id( MyApplication.user.getId());
+                    System.out.println(ff.toString());
+                    System.out.println(fb.getOneFavory(e.getId(),MyApplication.user.getId()).toString());
+
+                    List<favory_brand> listf=new ArrayList<>();
+                    listf=fb.GetFaovryByUser(MyApplication.user.getId());
+                    for(favory_brand p:listf)
+                    {
+                    if(p.getEnseigne_id()==ff.getEnseigne_id()&&p.getUser_id()==ff.getUser_id()){
+                    System.out.println("fama");
+                    }
+                   
+                    }*/
+ /*f1 = fb.getOneFavory(idb, MyApplication.user.getId());
+                    System.out.println(f1.toString());
+                    System.out.println(fb.getOneFavory(idb,MyApplication.user.getId()).toString());*/
+                    favory_brand ff = new favory_brand();
+                    ff.setEnseigne_id(e.getId());
+                    ff.setUser_id(MyApplication.user.getId());
+                    System.out.println(ff.toString());
+                    List<favory_brand> listf = new ArrayList<>();
+                    listf = fb.GetFaovryByUser(MyApplication.user.getId());
+                    System.out.println(listf.get(0).toString());
+                    for(int i=0;i<listf.size();i++)
+                    {
+                    if (listf.get(i).equals(ff)) {
+                        test=true;
+                      break;
+                    }
+                    else {
+                        test=false;
+
+                    }
+                    }
+                    if(test==true){
+                     Dialog.show("déja favoris", "", "ok", "cancel");
+                         
+                    }
+                    else{
+                      fb.AddFavory(e.getId(), MyApplication.user.getId());
+
+                    }
+                    /*if (f1.getUser_id() == 0) {
+                       
+                        fb.AddFavory(e.getId(), MyApplication.user.getId());
+                    } else {
+                        Dialog.show("déja favoris", "", "ok", "cancel");
+
+                    }*/
+                    refreshTheme();
                 }
             });
 
@@ -113,33 +169,34 @@ public class ShowBrand extends BaseForm{
                 }
             });*/
             Image placeholder11 = Image.createImage(40, 40);
-        EncodedImage encImage11 = EncodedImage.createFromImage(placeholder11, false);
-        imgUrl22 = URLImage.createToStorage(encImage11, "http://localhost/CupcakeScript/detalhes-h.png", "http://localhost/CupcakeScript/detalhes-h.png");
-        ImageViewer img22 = new ImageViewer(imgUrl22);
-        Label l12 = new Label("details");
-        Container c41 = new Container(BoxLayout.x());
-        c41.add(img22);
-        c41.add(l12);
+            EncodedImage encImage11 = EncodedImage.createFromImage(placeholder11, false);
+            imgUrl22 = URLImage.createToStorage(encImage11, "http://localhost/CupcakeScript/detalhes-h.png", "http://localhost/CupcakeScript/detalhes-h.png");
+            ImageViewer img22 = new ImageViewer(imgUrl22);
+            Label l12 = new Label("details");
+            Container c41 = new Container(BoxLayout.x());
+            c41.add(img22);
+            c41.add(l12);
 
-        l12.addPointerPressedListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                DetailBrand.idenseigne=e.getId();
-                                      DetailBrand a = new DetailBrand();
+            l12.addPointerPressedListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    DetailBrand.idenseigne = e.getId();
+                    MapForm.idenseigne = e.getId();
+                    DetailBrand a = new DetailBrand();
 
-            a.show();
-            }
-        });
+                    a.show();
+                }
+            });
 
-        c41.setLeadComponent(l12);
-        //add(c41);
+            c41.setLeadComponent(l12);
+            //add(c41);
             c1.add(lb);
             c1.add(c41);
             c1.add(c4);
             c2.add(img1);
             c2.add(c1);
             c3.add(c2);
-                        //c3.add(FlowLayout.encloseCenter(createStarRankSlider()));
+            //c3.add(FlowLayout.encloseCenter(createStarRankSlider()));
 
         }
         //c3.add(c1);
@@ -157,8 +214,6 @@ public class ShowBrand extends BaseForm{
                 )
         );
     }
-
-  
 
     /*public Form getF() {
         return f;

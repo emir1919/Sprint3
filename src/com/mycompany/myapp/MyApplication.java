@@ -17,9 +17,14 @@ import com.codename1.ui.util.Resources;
 import com.codename1.ui.util.UITimer;
 import java.io.IOException;
 import com.codename1.ui.Toolbar;
+import com.mycompany.Entity.Users;
+import com.mycompany.gui.BudgetPieChart;
+import com.mycompany.gui.ChartDemosForm;
 import com.mycompany.gui.HomeForm;
 import com.mycompany.gui.InboxForm;
+import com.mycompany.gui.Login;
 import com.mycompany.gui.MapForm;
+import com.mycompany.gui.SalesBarChart;
 import com.mycompany.gui.ShowBrand;
 
 /**
@@ -30,6 +35,7 @@ public class MyApplication {
 
     private Form current;
     private Resources theme;
+    public static Users user = null;
 
     public Resources getTheme() {
         return theme;
@@ -56,9 +62,14 @@ public class MyApplication {
         }
          /*HomeForm h = new HomeForm();
         h.getF().show();*/
-                 new ShowBrand(theme).show();
+                 //new ShowBrand(theme).show();
                  //new MapForm(theme).show();
+                  //BudgetPieChart demos = new BudgetPieChart();
+             /*SalesBarChart demos = new SalesBarChart();
 
+        demos.execute().show();*/
+ Login h = new Login();
+        h.getF().show();
     }
 
     public void stop() {
