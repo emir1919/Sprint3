@@ -7,9 +7,11 @@
     <image name="calendar-background.jpg"  />
     <image name="calendar-separator.png" type="multi"  />
     <image name="card.png" type="multi"  />
+    <image name="cartplus.png"  />
     <image name="contact-a.png" type="multi"  />
     <image name="contact-b.png" type="multi"  />
     <image name="contact-c.png" type="multi"  />
+    <image name="currencyusd.png"  />
     <image name="dark-rect.png" type="multi"  />
     <image name="griffith.jpg"  />
     <image name="GroupElement.borderBottom_1.png" type="multi"  />
@@ -48,6 +50,7 @@
     <image name="GroupElementOnly.borderTop_1.png" type="multi"  />
     <image name="GroupElementOnly.borderTopL_1.png" type="multi"  />
     <image name="GroupElementOnly.borderTopR_1.png" type="multi"  />
+    <image name="informationoutline.png"  />
     <l10n name="l1">
         <lang name="en">
             <entry key="menu" value="Menu" />
@@ -57,8 +60,8 @@
             <entry key="Calendar.Thursday" value="Thu" />
             <entry key="ok" value="OK" />
             <entry key="Calendar.Saturday" value="Sat" />
-            <entry key="Calendar.Friday" value="Fri" />
             <entry key="select" value="Select" />
+            <entry key="Calendar.Friday" value="Fri" />
             <entry key="edit" value="Edit" />
             <entry key="Calendar.Monday" value="Mon" />
             <entry key="cancel" value="Cancel" />
@@ -69,8 +72,10 @@
     <image name="learn-codename-one.jpg"  />
     <image name="logo.png" type="multi"  />
     <image name="marker.png"  />
+    <image name="plc.jpg"  />
     <image name="profile_image.png" type="multi"  />
     <image name="progress.png" type="multi"  />
+    <image name="sale.png"  />
     <image name="selection-in-sidemenu.png" type="multi"  />
     <image name="sidemenu-background.jpg"  />
     <image name="skate-park.jpg"  />
@@ -124,7 +129,7 @@
         <val key="CalendarDay.padUnit" value="2,2,2,2" />
         <val key="CalendarDay.padding" value="1,1,1,1" />
         <val key="CalendarHourSelected.align" value="4" />
-        <border key="CalendarHourSelected.border" type="round" roundBorderColor="13840175" opacity="0" strokeColor="0" strokeOpacity="255" strokeThickness="1.5" strokeMM="false" shadowSpread="10" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" shadowMM="false" rectangle="true" />
+        <border key="CalendarHourSelected.border" type="round" roundBorderColor="13840175" opacity="255" strokeColor="0" strokeOpacity="255" strokeThickness="1.5" strokeMM="false" shadowSpread="10" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" shadowMM="false" rectangle="true" />
         <val key="CalendarHourSelected.fgColor" value="0" />
         <font key="CalendarHourSelected.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
         <val key="CalendarHourSelected.marUnit" value="2,2,2,2" />
@@ -133,7 +138,7 @@
         <val key="CalendarHourSelected.padding" value="1,1,2,2" />
         <val key="CalendarHourSelected.transparency" value="0" />
         <val key="CalendarHourUnselected.align" value="4" />
-        <border key="CalendarHourUnselected.border" type="round" roundBorderColor="13840175" opacity="0" strokeColor="12438235" strokeOpacity="255" strokeThickness="1.5" strokeMM="false" shadowSpread="10" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" shadowMM="false" rectangle="true" />
+        <border key="CalendarHourUnselected.border" type="round" roundBorderColor="13840175" opacity="255" strokeColor="12438235" strokeOpacity="255" strokeThickness="1.5" strokeMM="false" shadowSpread="10" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" shadowMM="false" rectangle="true" />
         <val key="CalendarHourUnselected.fgColor" value="bdcadb" />
         <font key="CalendarHourUnselected.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
         <val key="CalendarHourUnselected.marUnit" value="2,2,2,2" />

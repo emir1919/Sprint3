@@ -66,6 +66,8 @@ public class BaseForm extends Form {
         );*/
 
         getToolbar().addCommandToSideMenu("Stats", statsImage, e -> new StatsForm(res).show());
+        getToolbar().addCommandToSideMenu("Produits", statsImage, e -> new ProductsList().getF().show());
+        getToolbar().addCommandToSideMenu("Categories", statsImage, e -> new CategoriesList().getF().show());
         //getToolbar().addCommandToSideMenu("Calendar", calendarImage, e -> new CalendarForm(res).show());
         //getToolbar().addCommandToSideMenu("Trending", trendingImage, e -> new TrendingForm(res).show());
 

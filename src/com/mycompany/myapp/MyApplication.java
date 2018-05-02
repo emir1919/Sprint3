@@ -19,11 +19,14 @@ import java.io.IOException;
 import com.codename1.ui.Toolbar;
 import com.mycompany.Entity.Users;
 import com.mycompany.gui.BudgetPieChart;
+import com.mycompany.gui.CategoriesList;
 import com.mycompany.gui.ChartDemosForm;
 import com.mycompany.gui.HomeForm;
 import com.mycompany.gui.InboxForm;
 import com.mycompany.gui.Login;
 import com.mycompany.gui.MapForm;
+import com.mycompany.gui.ProductAdd;
+import com.mycompany.gui.ProductsList;
 import com.mycompany.gui.SalesBarChart;
 import com.mycompany.gui.ShowBrand;
 
@@ -36,7 +39,8 @@ public class MyApplication {
     private Form current;
     private Resources theme;
     public static Users user = null;
-
+    public static String urlUpload = "http://localhost/cupcake/uploads/";
+    
     public Resources getTheme() {
         return theme;
     }
@@ -68,8 +72,13 @@ public class MyApplication {
              /*SalesBarChart demos = new SalesBarChart();
 
         demos.execute().show();*/
- Login h = new Login();
+        Login h = new Login();
         h.getF().show();
+        
+        //ProductsList f = new ProductsList();
+        //CategoriesList f = new CategoriesList();
+        //ProductAdd f = new ProductAdd();
+        //f.getF().show();
     }
 
     public void stop() {
